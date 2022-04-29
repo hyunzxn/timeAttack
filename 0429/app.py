@@ -29,6 +29,7 @@ def save_post():
         "title": title_receive,
         "content": content_receive,
         "pw": pw_receive,
+        "reg_date": datetime.now()
     }
 
     db.post.insert_one(doc)

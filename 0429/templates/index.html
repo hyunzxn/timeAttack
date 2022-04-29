@@ -87,7 +87,13 @@
                     pw_give: pw,
                 },
                 success: function (response) {
-                    alert(response['result'])
+                    if (response['result'] === 'success') {
+                        alert(response['result'])
+                        window.location.reload();
+                    } else {
+                        alert('서버가 이상합니닷 ㅎㅎ');
+                    }
+
                 }
             });
 
@@ -95,7 +101,7 @@
 
         function showArticles() {
             // todo
-            makeListPost(a, b);
+            // makeListPost(a, b);
         }
 
         function makeListPost(post, index) {
