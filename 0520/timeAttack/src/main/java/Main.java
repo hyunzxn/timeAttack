@@ -7,7 +7,8 @@ abstract class Player{
     private String initNumber;
     private List<String> fightList = new LinkedList<String>();
     private Boolean isEnd;
-    public Player(String name, String initNumber) {
+
+    public Player(String name, String initNumber) { // Player class의 생성자
         this.name = name;
         this.initNumber = initNumber;
         this.isEnd = false;
@@ -18,13 +19,20 @@ abstract class Player{
     public void setIsEnd(Boolean isEnd) { this.isEnd = isEnd; }
     public String getInitNumber() { return initNumber; }
     public String getName() { return name; }
-    public void printFightList() {
-        // TODO
+    public void printFightList() { // fight 기록이 들어가는 리스트를 출력해주는 메소드
+        System.out.println(name);
+        System.out.println("-----------------");
+        int i = 1;
+        for (String fight : fightList) {
+            System.out.println(i + ": " + fight);
+            i++;
+        }
+        System.out.println("-----------------");
     }
 }
 class PlayerATeam extends Player
 {
-    public PlayerATeam(String name, String number) {
+    public PlayerATeam(String name, String number) { // PlayerATeam의 생성자
         super(name, number);
     }
 
@@ -35,18 +43,18 @@ class PlayerATeam extends Player
         int out = 0;
 
         // TODO
-        String initNum = getInitNumber();
+        String initNum = getInitNumber(); // initNumber 받기
         for (int i = 0; i < initNum.length(); i++) {
-            char initNumEach = initNum.charAt(i);
-            if (initNum.indexOf(initNumEach) != -1) {
-                ball = ball + 1;
-            } else if (initNum.indexOf(initNumEach) == -1) {
-                out = out + 1;
+            if (initNum.charAt(i) == number.charAt(i)) { // initNum의 각 자리 숫자랑 사용자가 입력한 각 자리 숫자 비교
+                strike += 1;
+            } else {
+                if (number.indexOf(initNum.charAt(i)) != -1) { // initNum의 각 자리 숫자가 사용자가 입력한 각 자리 숫자에 포함되는지 확인
+                    ball += 1;
+                } else {
+                    out += 1;
+                }
             }
         }
-
-
-
 
         if(strike == 4) {
             System.out.println("Congratulation!");
@@ -54,6 +62,8 @@ class PlayerATeam extends Player
         } else {
             System.out.println("Strike : "+strike+", Ball :"+ball+", Out: "+out);
         }
+
+        super.addFightList(number + " Strike: " + strike + " ,Ball: " + ball + " ,Out: " + out);
     }
 }
 
@@ -69,13 +79,27 @@ class PlayerBTeam extends Player
         int out = 0;
 
         // TODO
+        String initNum = getInitNumber(); // initNumber 받기
+        for (int i = 0; i < initNum.length(); i++) {
+            if (initNum.charAt(i) == number.charAt(i)) { // initNum의 각 자리 숫자랑 사용자가 입력한 각 자리 숫자 비교
+                ball += 1;
+            } else {
+                if (number.indexOf(initNum.charAt(i)) != -1) { // initNum의 각 자리 숫자가 사용자가 입력한 각 자리 숫자에 포함되는지 확인
+                    strike += 1;
+                } else {
+                    out += 1;
+                }
+            }
+        }
 
         if(ball == 4) {
             System.out.println("Congratulation!");
             super.setIsEnd(true);
         } else {
-            System.out.println("Strike : "+strike+", Ball :"+ball+", Out: "+out);
+            System.out.println("Strike : "+strike+ ", Ball : "+ball+", Out: "+out);
         }
+
+        super.addFightList(number + " Strike: " + strike + " ,Ball: " + ball + " ,Out: " + out);
     }
 }
 
